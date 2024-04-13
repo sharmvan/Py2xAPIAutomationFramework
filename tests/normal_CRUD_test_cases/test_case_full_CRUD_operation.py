@@ -75,9 +75,26 @@ class TestCRUDBooking(object):
             in_json=False
         )
         print(response.json())
+        # Add verifications here and more
+        verify_json_key_for_not_null(response.json()["firstname"])
+        verify_json_key_for_not_null(response.json()["lastname"])
+        verify_response_key(response.json()["firstname"],"Vandana")
+        verify_response_key(response.json()["lastname"], "Sharma")
         verify_http_status_code(response_data=response.json(), expect_data=200)
 
     @allure.title("Test CRUD operation Delete(delete).")
     @allure.description("Verify booking gets deleted with the booking ID and Token")
-    def test_delete_booking_id(self):
-        pass
+    def test_delete_booking_id(self, create_token, get_booking_id):
+        booking_id = get_booking_id
+        token = create_token
+        delete_url = APIConstants.url_patch_put_delete(booking_id=booking_id)
+        response = delete_request(
+            url=delete_url,
+            headers=Util().common_headers_put_patch_delete_by_cookie(token=token),
+            auth=None,
+            in_json=False
+        )
+        print(response.text)
+        verify_response_deleted(response=response.text)  # Whenever we make delete request, It's a text. Not JSON
+        verify_http_status_code(response_data=response.json(), expect_data=201)
+# Note: Please remove print in every test case whenever we are done.

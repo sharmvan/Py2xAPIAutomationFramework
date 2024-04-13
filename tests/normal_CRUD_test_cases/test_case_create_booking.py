@@ -36,6 +36,9 @@ class TestCreateBooking(object):  # We can import the object
                                 headers=Util().common_headers_json(),
                                 payload={},
                                 in_json=False)
+        # Even it's a -ve test case, our ER (Expected Result) should be = AR (Actual Result)
+        # 500 (AR) = 500 (ER)
         verify_http_status_code(response, 500)
+
 
 
