@@ -20,7 +20,7 @@ from jsonschema.exceptions import ValidationError  # we will get some exceptions
 class TestCreateBookingJsonSchema(object):  # We can import the object
 
     def load_schema(self, file_name):  # This function will load the schema
-        with open('file_name', 'r') as file:
+        with open(file_name, 'r') as file:
             return json.load(file)
 
     @pytest.mark.positive
@@ -45,7 +45,7 @@ class TestCreateBookingJsonSchema(object):  # We can import the object
 
         # Need to verify response with schema.json stored
         # print(os.getcwd())
-        file_path = os.getcwd()+"\Create_Booking_Schema.json"
+        file_path = os.getcwd() + "\Create_Booking_Schema.json"
         schema = self.load_schema(file_name=file_path)  # here schema is present
         try:
             # response=response.json(): means where is your response?--> Response is present in response.json()
@@ -58,4 +58,3 @@ class TestCreateBookingJsonSchema(object):  # We can import the object
             pytest.fail("Failed: JSON schema error")
             # xfail: will give you warnings
             # fail: fail will fail the test case
-
